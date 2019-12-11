@@ -64,6 +64,8 @@ def train(args):
     mdl = FeedforwardNetwork(args, dataset.ft_extractors, dataset.LANG).to(dataset.device)
     optimizer = optim.Adam(params=[p for p in mdl.parameters() if p.requires_grad],
                            lr=args.lr, weight_decay=args.l2reg)
+    # optimizer = optim.ASGD(params=[p for p in mdl.parameters() if p.requires_grad],
+    #                        lr=1e-1, weight_decay=args.l2reg)
 
     utils.log('Begin training')
     valid_res = valid(mdl, dataset.valid_iter, dataset.LANG, args)
@@ -88,6 +90,7 @@ def train(args):
                           f'Loss {np.mean(losses):.4f} ' + str(valid_res))
                 losses = []
                 if valid_res['f1'] > best_perf:
+                    best_perf = valid_res['f1']
                     fmdl = os.path.join(args.mdir, 'mdl.pkl')
                     torch.save(mdl.state_dict(), fmdl)
                     utils.log(f'Saved model to {fmdl}')
@@ -97,10 +100,12 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
     # ------------ high-level argument ------------
     parser.add_argument("-nepoches", default=2, type=int)
-    parser.add_argument("-ngram_dim", default=256, type=int)
+    parser.add_argument("-ngram_dim", default=16, type=int)
+    parser.add_argument("-uniblock_dim", default=8, type=int)
     parser.add_argument("-hdim", default=16, type=int)
     parser.add_argument("-bsz", default=256, type=int)
-    parser.add_argument("-drop", default=0.5, type=float)
+    parser.add_argument("-ngram_drop", default=0.01, type=float)
+    parser.add_argument("-uniblock_drop", default=0.5, type=float)
     parser.add_argument("-gclip", default=1, type=float)
     parser.add_argument("-lr", default=1e-3, type=float)
     parser.add_argument("-l2reg", default=0, type=float)
@@ -111,6 +116,7 @@ if __name__ == '__main__':
     parser.add_argument('-ftrain', default='data/train.csv', type=str)
     parser.add_argument('-fvalid', default='data/valid.csv', type=str)
     parser.add_argument('-ftest', default='data/test.csv', type=str)
+    parser.add_argument('-futable', default='data/unicode_blocks.csv', type=str)
 
     args = parser.parse_args()
     utils.init_seed(args.seed)

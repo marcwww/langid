@@ -16,10 +16,12 @@ logging.basicConfig(level=logging.INFO,
 def log(msg):
     logging.info(msg)
 
+
 def save_txt(txt, fpath):
     with open(fpath, 'w') as f:
         f.write(txt)
     log(f'Saved to {fpath}')
+
 
 def save_obj(obj, fpath):
     with open(fpath, 'wb') as f:
@@ -65,7 +67,11 @@ class DropEmbedding(nn.Embedding):
         init.normal_(self.weight, std=0.01)
 
     def forward(self, input):
-        return self.drop(super(DropEmbedding, self).forward(input))
+        if input.dtype == torch.int64:
+            return self.drop(super(DropEmbedding, self).forward(input))
+        else:
+            assert input.dtype == torch.float32
+            return self.drop(input.matmul(self.weight))
 
 
 def mean_pooling(hids: torch.Tensor, mask_eq_pad):

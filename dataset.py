@@ -41,17 +41,52 @@ class NgramFeature(object):
         return [self.stoi[ngram] for ngram in ngrams if ngram in self.stoi]
 
 
+class UnicodeBlockFeature(object):
+
+    def __init__(self):
+        self.bs = None
+        self.es = None
+        self.itos = []
+        self.stoi = {}
+
+    def build(self, ftable):
+        # table: begin end label
+        table = pd.read_csv(ftable, '\t')
+        self.bs = np.array([[int(n, 16) for n in table.begin]])
+        self.es = np.array([[int(n, 16) for n in table.end]])
+        for uniblock in table.label:
+            self.add(uniblock)
+
+    def add(self, uniblock):
+        if uniblock in self.stoi:
+            return
+        self.itos.append(uniblock)
+        self.stoi[uniblock] = len(self.itos) - 1
+
+    def extract(self, txt):
+        # return normalized frequency vector
+        unicodes = np.array([[ord(ch)] for ch in txt])
+        locate = (unicodes >= self.bs) & (unicodes < self.es)  # (seq_len, nblocks)
+        vec = locate.sum(axis=0)
+        vec_sum = vec.sum()
+        if vec_sum > 0:
+            return vec / vec_sum
+        return vec
+
+
 class Lang(object):
 
     def __init__(self):
         self.stoi = {}
         self.itos = []
+        self.freq = None
 
     def build(self, langs):
         freqs = Counter(langs)
         freqs = dict(sorted(freqs.items(), key=lambda x: x[1]))
         for lang in freqs:
             self.add(lang)
+        self.freq = [freqs[lang] for lang in self.itos]
 
     def add(self, lang):
         if lang in self.stoi:
@@ -74,6 +109,7 @@ class LangIDDataset(object):
         ftrain = args.ftrain
         fvalid = args.fvalid
         ftest = args.ftest
+        futable = args.futable
         bsz = args.bsz
         mdir = args.mdir
         train, valid, test = self.load_data(ftrain), \
@@ -81,13 +117,19 @@ class LangIDDataset(object):
                              self.load_data(ftest)
         ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
                          zip([1, 2, 3, 4], [1000, 1000, 5000, 5000])}
+        ft_extractors['unicode-block'] = UnicodeBlockFeature()
         for name in ft_extractors:
             cache_path = os.path.join(mdir, f'{name}.pkl')
             if os.path.exists(cache_path):
                 ft_extractors[name] = utils.load_obj(cache_path)
             else:
                 utils.log(f'Building feature {name}')
-                ft_extractors[name].build(train.txt)
+                if 'gram' in name:
+                    ft_extractors[name].build(train.txt)
+                elif name == 'unicode-block':
+                    ft_extractors[name].build(futable)
+                else:
+                    raise NotImplementedError
                 utils.save_obj(ft_extractors[name], cache_path)
 
         cache_path = os.path.join(mdir, 'lang.pkl')
@@ -125,13 +167,17 @@ class LangIDDataset(object):
         return df
 
     @staticmethod
-    def txts2tensor(txts, ft_extractor: NgramFeature):
+    def build_batch_ngram(txts, ft_extractor: NgramFeature):
         seqs = [ft_extractor.extract(txt) for txt in txts]
         pad_idx = ft_extractor.stoi[PAD]
         seq_len = max([len(seq) for seq in seqs])
         for seq in seqs:
             seq.extend([pad_idx] * (seq_len - len(seq)))
         return torch.LongTensor(seqs)
+
+    @staticmethod
+    def build_batch_uniblock(txts, ft_extractor: UnicodeBlockFeature):
+        return torch.Tensor([ft_extractor.extract(txt) for txt in txts])
 
     @staticmethod
     def build_batches(df, ft_extractors: dict, bsz, LANG: Lang, shuffle, device):
@@ -151,7 +197,10 @@ class LangIDDataset(object):
         def build_batch(df_seg):
             batch = {'lang': torch.LongTensor(df_seg.lang.tolist()).to(device)}
             for name, extractor in ft_extractors.items():
-                batch[name] = LangIDDataset.txts2tensor(df_seg.txt, extractor).to(device)
+                if 'gram' in name:
+                    batch[name] = LangIDDataset.build_batch_ngram(df_seg.txt, extractor).to(device)
+                elif name == 'unicode-block':
+                    batch[name] = LangIDDataset.build_batch_uniblock(df_seg.txt, extractor).to(device)
             return batch
 
         return utils.BatchIterator(df, index_segs, build_batch)
