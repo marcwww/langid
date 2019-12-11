@@ -10,6 +10,38 @@ from collections import defaultdict
 import numpy as np
 
 
+class WordFeature(object):
+
+    def __init__(self, vsize):
+        self.itos = []
+        self.stoi = {}
+        self.vsize = vsize
+
+    def tokenize(self, txt):
+        return txt.lower().split()
+
+    def build(self, txts):
+        counter = defaultdict(int)
+        for txt in tqdm.tqdm(txts):
+            for word in self.tokenize(txt):
+                counter[word] += 1
+        counter = sorted(counter.items(),
+                         key=lambda x: x[1],
+                         reverse=True)[:self.vsize]
+        self.add(PAD)
+        for ngram, c in counter:
+            self.add(ngram)
+
+    def add(self, ngram):
+        if ngram in self.stoi:
+            return
+        self.itos.append(ngram)
+        self.stoi[ngram] = len(self.itos) - 1
+
+    def extract(self, txt):
+        return [self.stoi[word] for word in self.tokenize(txt) if word in self.stoi]
+
+
 class NgramFeature(object):
 
     def __init__(self, n, vsize):
@@ -18,10 +50,14 @@ class NgramFeature(object):
         self.itos = []
         self.stoi = {}
 
+    def tokenize(self, txt):
+        ngrams = utils.extract_ngrams(txt, self.n)
+        return filter(lambda ngram: len(''.join(ngram.split())) == self.n, ngrams)
+
     def build(self, txts):
         counter = defaultdict(int)
         for txt in tqdm.tqdm(txts):
-            for ngram in utils.extract_ngrams(txt, self.n):
+            for ngram in self.tokenize(txt):
                 counter[ngram] += 1
         counter = sorted(counter.items(),
                          key=lambda x: x[1],
@@ -37,7 +73,7 @@ class NgramFeature(object):
         self.stoi[ngram] = len(self.itos) - 1
 
     def extract(self, txt):
-        ngrams = utils.extract_ngrams(txt, self.n)
+        ngrams = self.tokenize(txt)
         return [self.stoi[ngram] for ngram in ngrams if ngram in self.stoi]
 
 
@@ -65,6 +101,7 @@ class UnicodeBlockFeature(object):
 
     def extract(self, txt):
         # return normalized frequency vector
+        txt = ''.join(txt.split())
         unicodes = np.array([[ord(ch)] for ch in txt])
         locate = (unicodes >= self.bs) & (unicodes < self.es)  # (seq_len, nblocks)
         vec = locate.sum(axis=0)
@@ -111,15 +148,15 @@ class LangIDDataset(object):
         ftest = args.ftest
         futable = args.futable
         bsz = args.bsz
-        mdir = args.mdir
         train, valid, test = self.load_data(ftrain), \
                              self.load_data(fvalid), \
                              self.load_data(ftest)
         ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
-                         zip([1, 2, 3, 4], [1000, 1000, 5000, 5000])}
+                         zip([1, 2, 3, 4], [10000, 10000, 50000, 50000])}
         ft_extractors['unicode-block'] = UnicodeBlockFeature()
+        ft_extractors['word'] = WordFeature(50000)
         for name in ft_extractors:
-            cache_path = os.path.join(mdir, f'{name}.pkl')
+            cache_path = os.path.join('cache', f'{name}.pkl')
             if os.path.exists(cache_path):
                 ft_extractors[name] = utils.load_obj(cache_path)
             else:
@@ -128,11 +165,13 @@ class LangIDDataset(object):
                     ft_extractors[name].build(train.txt)
                 elif name == 'unicode-block':
                     ft_extractors[name].build(futable)
+                elif name == 'word':
+                    ft_extractors[name].build(train.txt)
                 else:
                     raise NotImplementedError
                 utils.save_obj(ft_extractors[name], cache_path)
 
-        cache_path = os.path.join(mdir, 'lang.pkl')
+        cache_path = os.path.join('cache', 'lang.pkl')
         LANG = Lang()
         if os.path.exists(cache_path):
             LANG = utils.load_obj(cache_path)
@@ -141,29 +180,19 @@ class LangIDDataset(object):
             LANG.build(train.lang)
             utils.save_obj(LANG, cache_path)
 
-        self.train_iter = self.build_batches(train, ft_extractors, bsz, LANG, True, device)
-        self.valid_iter = self.build_batches(valid, ft_extractors, bsz, LANG, False, device)
-        self.test_iter = self.build_batches(test, ft_extractors, bsz, LANG, False, device)
+        utils.log('Building batches')
+        self.train_iter = self.build_batches(train, 'train', ft_extractors, bsz, LANG, True, device)
+        self.valid_iter = self.build_batches(valid, 'valid', ft_extractors, bsz, LANG, False, device)
+        self.test_iter = self.build_batches(test, 'test', ft_extractors, bsz, LANG, False, device)
         self.ft_extractors = ft_extractors
         self.LANG = LANG
 
     @staticmethod
-    def preprocess(txt):
-        return list(re.sub(PATTERN_SPACE, '', txt))
-
-    @staticmethod
     def load_data(fpath):
-        cache_path = fpath + '.cache'
-        if os.path.exists(cache_path):
-            df = utils.load_obj(cache_path)
-            return df
-
         utils.log(f'Loading data from {fpath}')
         df = pd.read_csv(fpath, '\t')
         df.set_index('id', inplace=True)
-        df.txt = [LangIDDataset.preprocess(txt) for txt in tqdm.tqdm(df.txt)]
         df['len'] = [len(txt) for txt in df.txt]
-        utils.save_obj(df, cache_path)
         return df
 
     @staticmethod
@@ -173,19 +202,28 @@ class LangIDDataset(object):
         seq_len = max([len(seq) for seq in seqs])
         for seq in seqs:
             seq.extend([pad_idx] * (seq_len - len(seq)))
-        return torch.LongTensor(seqs)
+        return seqs
 
     @staticmethod
     def build_batch_uniblock(txts, ft_extractor: UnicodeBlockFeature):
-        return torch.Tensor([ft_extractor.extract(txt) for txt in txts])
+        return [ft_extractor.extract(txt) for txt in txts]
 
     @staticmethod
-    def build_batches(df, ft_extractors: dict, bsz, LANG: Lang, shuffle, device):
-        res = {name: [] for name in ft_extractors}
-        res['lang'] = []
+    def build_batch_word(txts, ft_extractor: WordFeature):
+        seqs = [ft_extractor.extract(txt) for txt in txts]
+        pad_idx = ft_extractor.stoi[PAD]
+        seq_len = max([len(seq) for seq in seqs])
+        for seq in seqs:
+            seq.extend([pad_idx] * (seq_len - len(seq)))
+        return seqs
+
+    @staticmethod
+    def build_batches(df, df_type, ft_extractors: dict, bsz, LANG: Lang, shuffle, device):
+        data = {name: [] for name in ft_extractors}
+        data['lang'] = []
+
         df = df.sort_values(by='len')
         df.lang = LANG.encode(df.lang)
-
         indices = np.arange(len(df))
         bs = indices[::bsz]
         es = bs + bsz
@@ -194,13 +232,33 @@ class LangIDDataset(object):
         if shuffle:
             np.random.shuffle(index_segs)
 
-        def build_batch(df_seg):
-            batch = {'lang': torch.LongTensor(df_seg.lang.tolist()).to(device)}
-            for name, extractor in ft_extractors.items():
-                if 'gram' in name:
-                    batch[name] = LangIDDataset.build_batch_ngram(df_seg.txt, extractor).to(device)
-                elif name == 'unicode-block':
-                    batch[name] = LangIDDataset.build_batch_uniblock(df_seg.txt, extractor).to(device)
-            return batch
+        for name in data:
+            cache_path = os.path.join('cache', f'{df_type}.{name}.cache')
 
-        return utils.BatchIterator(df, index_segs, build_batch)
+            if os.path.exists(cache_path):
+                data[name] = utils.load_obj(cache_path)
+            else:
+                utils.log(f'Extracting {name}')
+                for seg in tqdm.tqdm(index_segs):
+                    df_seg = df.iloc[seg]
+                    if name == 'lang':
+                        batch = df_seg.lang.tolist()
+                    elif 'gram' in name:
+                        batch = LangIDDataset.build_batch_ngram(df_seg.txt, ft_extractors[name])
+                    elif name == 'unicode-block':
+                        batch = LangIDDataset.build_batch_uniblock(df_seg.txt, ft_extractors[name])
+                    elif name == 'word':
+                        batch = LangIDDataset.build_batch_word(df_seg.txt, ft_extractors[name])
+                    else:
+                        raise NotImplementedError
+                    data[name].append(batch)
+                utils.save_obj(data[name], cache_path)
+
+        tensor_types = {}
+        for name in data:
+            if name == 'unicode-block':
+                tensor_types[name] = torch.Tensor
+            else:
+                tensor_types[name] = torch.LongTensor
+
+        return utils.BatchIterator(data, len(index_segs), tensor_types, device)

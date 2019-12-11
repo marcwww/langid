@@ -85,10 +85,11 @@ def mean_pooling(hids: torch.Tensor, mask_eq_pad):
 
 class BatchIterator(object):
 
-    def __init__(self, df_raw: pd.DataFrame, segs, build_batch):
-        self.df_raw = df_raw
-        self.segs = segs
-        self.build_batch = build_batch
+    def __init__(self, data: dict, nbatches, tensor_types, device):
+        self.data = data
+        self.nbatches = nbatches
+        self.device = device
+        self.tensor_types = tensor_types
         self.i = 0
 
     def __iter__(self):
@@ -96,13 +97,12 @@ class BatchIterator(object):
         return self
 
     def __len__(self):
-        return len(self.segs)
+        return self.nbatches
 
     def __next__(self):
-        while self.i < len(self.segs):
-            seg = self.segs[self.i]
-            df_seg = self.df_raw.iloc[seg]
-            batch = self.build_batch(df_seg)
+        while self.i < self.nbatches:
+            batch = {name: self.tensor_types[name](batches[self.i]).to(self.device)
+                     for name, batches in self.data.items()}
             self.i += 1
             return batch
         raise StopIteration

@@ -5,14 +5,9 @@ import torch
 import utils
 import pandas as pd
 
-mdir = 'mdl/ffd-uniblock/'
-ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
-                 zip([1, 2, 3, 4], [1000, 1000, 5000, 5000])}
-ft_extractors['unicode-block'] = UnicodeBlockFeature()
-for name in ft_extractors:
-    cache_path = os.path.join(mdir, f'{name}.pkl')
-    assert os.path.exists(cache_path)
-    ft_extractors[name] = utils.load_obj(cache_path)
+mdir = 'mdl/ffd-word-balanced'
+ft_names = ['1-gram', '2-gram', '3-gram', '4-gram', 'unicode-block', 'word']
+ft_extractors = {name: utils.load_obj(os.path.join('cache', name + '.pkl')) for name in ft_names}
 
 
 def build_batch(txt):
@@ -22,12 +17,14 @@ def build_batch(txt):
             batch[name] = torch.LongTensor([ft_extractors[name].extract(txt)])
         elif name == 'unicode-block':
             batch[name] = torch.Tensor([ft_extractors[name].extract(txt)])
+        elif name == 'word':
+            batch[name] = torch.LongTensor([ft_extractors[name].extract(txt)])
         else:
             raise NotImplementedError
     return batch
 
 
-obj_path = os.path.join(mdir, 'lang.pkl')
+obj_path = os.path.join('cache', 'lang.pkl')
 assert os.path.exists(obj_path)
 LANG = utils.load_obj(obj_path)
 
@@ -46,6 +43,8 @@ utils.log(f'Loaded ISO-639-4')
 
 while True:
     line = input('Pleasing input text for language identification: ')
+    if len(line.strip()) == 0:
+        continue
     batch = build_batch(line)
     logits = mdl(batch)
     pred = logits.max(dim=-1)[1]

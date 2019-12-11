@@ -94,19 +94,25 @@ def train(args):
                     fmdl = os.path.join(args.mdir, 'mdl.pkl')
                     torch.save(mdl.state_dict(), fmdl)
                     utils.log(f'Saved model to {fmdl}')
+    utils.log('Training done')
+    test_res = valid(mdl, dataset.test_iter, dataset.LANG, args)
+    utils.log(f'Test result: {test_res}')
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
     # ------------ high-level argument ------------
-    parser.add_argument("-nepoches", default=2, type=int)
+    parser.add_argument("-nepoches", default=4, type=int)
     parser.add_argument("-ngram_dim", default=16, type=int)
     parser.add_argument("-uniblock_dim", default=8, type=int)
+    parser.add_argument("-word_dim", default=16, type=int)
     parser.add_argument("-hdim", default=16, type=int)
     parser.add_argument("-bsz", default=256, type=int)
     parser.add_argument("-ngram_drop", default=0.01, type=float)
     parser.add_argument("-uniblock_drop", default=0.5, type=float)
+    parser.add_argument("-word_drop", default=0.5, type=float)
     parser.add_argument("-gclip", default=1, type=float)
+    parser.add_argument('-balanced_exp', default=None, type=float)
     parser.add_argument("-lr", default=1e-3, type=float)
     parser.add_argument("-l2reg", default=0, type=float)
     parser.add_argument("-gpu", default=-1, type=int)
