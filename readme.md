@@ -16,7 +16,7 @@ The detailed dimensions are shown in the bracks in the architecture figure. Adam
 
 ### Dataset and external resources
 
-- Training and testing: [sentences from the Tatoeba website](http://downloads.tatoeba.org/exports/sentences.tar.bz2). We extract random 10000 examples for validation and testing. We keep the languages whose number of examples > 50 and 212 languages remained.
+- Training and testing: [sentences from the Tatoeba website](http://downloads.tatoeba.org/exports/sentences.tar.bz2) (statistics: 7967k lines, 66047k words, 440346k characters ). We extract random 10000 examples for validation and testing. We keep the languages whose number of examples > 50 and 212 languages remained. 
 - Unicode blocks: from website [Unicode Character Ranges](https://www.ling.upenn.edu/courses/Spring_2003/ling538/UnicodeRanges.html) (see [data/unicode-blocks.csv](data/unicode-blocks.csv)).
 - ISO-639-4 look-up table: from wikipedia websites (see [./ISO-639-4.csv](./ISO-639-4.csv)). This look-up table is used to transfer each ISO-639-4 language code to its corresponding label.
 
