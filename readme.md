@@ -31,6 +31,7 @@ The detailed dimensions are shown in the bracks in the architecture figure. Adam
 - pytorch=1.3.1
 - tqdm=4.40.0
 - scikit-leran=0.21.3
+- ipython==7.10.1
 
 See also [./requirements.txt](./requirements.txt).
 
