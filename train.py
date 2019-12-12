@@ -50,7 +50,7 @@ def valid(mdl: FeedforwardNetwork, data_iter: utils.BatchIterator, LANG, args):
            'f1': round(f1, 2),
            'precision': round(precision, 2),
            'recall': round(recall, 2)}
-    report = classification_report(golds, preds, LANG.itos)
+    report = classification_report(golds, preds, digits=4)
     utils.save_txt(report, os.path.join(args.mdir,
                                         f'report-acc{acc:.2}-'
                                         f'f1{f1:.2}-'
@@ -101,7 +101,6 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
-    # ------------ high-level argument ------------
     parser.add_argument("-nepoches", default=4, type=int)
     parser.add_argument("-ngram_dim", default=16, type=int)
     parser.add_argument("-uniblock_dim", default=8, type=int)

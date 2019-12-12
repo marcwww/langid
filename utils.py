@@ -77,7 +77,7 @@ class DropEmbedding(nn.Embedding):
 def mean_pooling(hids: torch.Tensor, mask_eq_pad):
     # hids: (bsz, seq_len, hdim)
     # mask_eq_pad: (bsz, seq_len)
-    lengths = mask_eq_pad.sum(dim=-1)
+    lengths = (~mask_eq_pad).sum(dim=-1)
     lengths = lengths.masked_fill(lengths.eq(0), 1).float().unsqueeze(-1)
     pooled = hids.masked_fill(mask_eq_pad.unsqueeze(-1), 0).sum(dim=1) / lengths
     return pooled  # (bsz, hdim)

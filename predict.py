@@ -6,65 +6,54 @@ import utils
 import pandas as pd
 import argparse
 import tqdm
-from sklearn.metrics import f1_score, precision_score, \
-    recall_score, accuracy_score, classification_report
-
-mdir = 'mdl/ffd-word-balanced'
-ft_names = ['1-gram', '2-gram', '3-gram', '4-gram', 'unicode-block', 'word']
-ft_extractors = {name: utils.load_obj(os.path.join('cache', name + '.pkl')) for name in ft_names}
+from dataset import *
+from eval import load_whole
 
 
-def build_batch(txt):
-    batch = {}
-    for name, extractor in ft_extractors.items():
-        if 'gram' in name:
-            batch[name] = torch.LongTensor([ft_extractors[name].extract(txt)])
-        elif name == 'unicode-block':
-            batch[name] = torch.Tensor([ft_extractors[name].extract(txt)])
-        elif name == 'word':
-            batch[name] = torch.LongTensor([ft_extractors[name].extract(txt)])
-        else:
-            raise NotImplementedError
-    return batch
+def load_data(fpath):
+    utils.log(f'Loading data from {fpath}')
+    df = pd.read_csv(fpath, '\t', names=['txt'])
+    # df.set_index('id', inplace=True)
+    df['len'] = [len(txt) for txt in df.txt]
+    df['lang'] = ['cmn'] * len(df)
+    return df
 
-
-obj_path = os.path.join('cache', 'lang.pkl')
-assert os.path.exists(obj_path)
-LANG = utils.load_obj(obj_path)
-
-obj_path = os.path.join(mdir, 'args.pkl')
-assert os.path.exists(obj_path)
-args = utils.load_obj(obj_path)
-
-mdl = FeedforwardNetwork(args, ft_extractors, LANG)
-fmdl = os.path.join(mdir, 'mdl.pkl')
-mdl.load_state_dict(torch.load(fmdl, map_location=torch.device('cpu')))
-mdl.eval()
-utils.log(f'Loaded model from {fmdl}')
-
-iso_639_4 = pd.read_csv('ISO-639-4.csv', '\t')
-lang2label = {row.iso: row.label for idx, row in iso_639_4.iterrows()}
-utils.log(f'Loaded ISO-639-4')
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
-    # ------------ high-level argument ------------
     parser.add_argument("-finput", required=True, type=str, help="One line one input")
+    parser.add_argument("-mdir", default='mdl/ffd-googledrop-256hdim', type=str, help='Indicating the model directory.')
+    parser.add_argument("-gpu", default=-1, type=int, help='Indicating GPU index, -1 for CPU')
+    parser.add_argument("-bsz", default=256, type=int, help='Indicating batch size')
     args = parser.parse_args()
-    df = pd.read_csv(args.finput, '\t', names=['txt'])
+
+    device = torch.device(args.gpu if args.gpu != -1 else 'cpu')
+    ft_extractors, LANG, _, mdl, lang2label = load_whole(args.mdir)
+    mdl.to(device)
+
     preds = []
     labels = []
+    data_type = 'input-only'
     with torch.no_grad():
-        for txt in tqdm.tqdm(df.txt, total=len(df)):
-            batch = build_batch(txt)
+        data = load_data(args.finput)
+        data_iter, df = LangIDDataset.build_batches(data, data_type, ft_extractors, args.bsz, LANG, False, device)
+        for batch in tqdm.tqdm(data_iter):
+            mdl.train(False)
             logits = mdl(batch)
             pred = logits.max(dim=-1)[1]
-            pred = LANG.decode(pred)[0]
-            preds.append(pred)
-            label = lang2label[pred]
-            labels.append(label)
+            pred = LANG.decode(pred)
+            preds.extend(pred)
+            label = [lang2label[p] for p in pred]
+            labels.extend(label)
+    for suffix in ['.1-gram.cache', '.2-gram.cache', '.3-gram.cache', '.4-gram.cache',
+                   '.lang.cache', '.unicode-block.cache', '.word.cache']:
+        cache_path = os.path.join('cache', data_type + suffix)
+        os.system(f'rm {cache_path}')
+        utils.log(f'Cleared cache {cache_path}')
 
     fout = 'out.txt'
-    df = pd.DataFrame({'lang': labels, 'ISO-639-4': preds, 'input': df.txt})
+    df = pd.DataFrame({'lang': labels, 'ISO-639-4': preds, 'input': df.txt, 'id': df.index})
+    df.sort_values(by='id', inplace=True)
+    df.set_index('id', inplace=True)
     df.to_csv(fout, '\t')
     utils.log(f'Predictions are saved to {fout}')

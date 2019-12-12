@@ -181,9 +181,9 @@ class LangIDDataset(object):
             utils.save_obj(LANG, cache_path)
 
         utils.log('Building batches')
-        self.train_iter = self.build_batches(train, 'train', ft_extractors, bsz, LANG, True, device)
-        self.valid_iter = self.build_batches(valid, 'valid', ft_extractors, bsz, LANG, False, device)
-        self.test_iter = self.build_batches(test, 'test', ft_extractors, bsz, LANG, False, device)
+        self.train_iter, _ = self.build_batches(train, 'train', ft_extractors, bsz, LANG, True, device)
+        self.valid_iter, _ = self.build_batches(valid, 'valid', ft_extractors, bsz, LANG, False, device)
+        self.test_iter, _ = self.build_batches(test, 'test', ft_extractors, bsz, LANG, False, device)
         self.ft_extractors = ft_extractors
         self.LANG = LANG
 
@@ -261,4 +261,4 @@ class LangIDDataset(object):
             else:
                 tensor_types[name] = torch.LongTensor
 
-        return utils.BatchIterator(data, len(index_segs), tensor_types, device)
+        return utils.BatchIterator(data, len(index_segs), tensor_types, device), df
