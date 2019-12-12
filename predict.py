@@ -4,6 +4,10 @@ import os
 import torch
 import utils
 import pandas as pd
+import argparse
+import tqdm
+from sklearn.metrics import f1_score, precision_score, \
+    recall_score, accuracy_score, classification_report
 
 mdir = 'mdl/ffd-word-balanced'
 ft_names = ['1-gram', '2-gram', '3-gram', '4-gram', 'unicode-block', 'word']
@@ -42,15 +46,25 @@ iso_639_4 = pd.read_csv('ISO-639-4.csv', '\t')
 lang2label = {row.iso: row.label for idx, row in iso_639_4.iterrows()}
 utils.log(f'Loaded ISO-639-4')
 
-while True:
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
+    # ------------ high-level argument ------------
+    parser.add_argument("-finput", required=True, type=str, help="One line one input")
+    args = parser.parse_args()
+    df = pd.read_csv(args.finput, '\t', names=['txt'])
+    preds = []
+    labels = []
     with torch.no_grad():
-        line = input('Pleasing input text for language identification: ')
-        if len(line.strip()) == 0:
-            continue
-        batch = build_batch(line)
-        logits = mdl(batch)
-        pred = logits.max(dim=-1)[1]
-        pred = LANG.decode(pred)[0]
-        label = lang2label[pred]
-        print(f'Model output: {label} (ISO-649-4: {pred})')
+        for txt in tqdm.tqdm(df.txt, total=len(df)):
+            batch = build_batch(txt)
+            logits = mdl(batch)
+            pred = logits.max(dim=-1)[1]
+            pred = LANG.decode(pred)[0]
+            preds.append(pred)
+            label = lang2label[pred]
+            labels.append(label)
 
+    fout = 'out.txt'
+    df = pd.DataFrame({'lang': labels, 'ISO-639-4': preds, 'input': df.txt})
+    df.to_csv(fout, '\t')
+    utils.log(f'Predictions are saved to {fout}')

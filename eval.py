@@ -4,6 +4,10 @@ import os
 import torch
 import utils
 import pandas as pd
+import argparse
+import tqdm
+from sklearn.metrics import f1_score, precision_score, \
+    recall_score, accuracy_score, classification_report
 
 mdir = 'mdl/ffd-word-balanced'
 ft_names = ['1-gram', '2-gram', '3-gram', '4-gram', 'unicode-block', 'word']
@@ -42,15 +46,31 @@ iso_639_4 = pd.read_csv('ISO-639-4.csv', '\t')
 lang2label = {row.iso: row.label for idx, row in iso_639_4.iterrows()}
 utils.log(f'Loaded ISO-639-4')
 
-while True:
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
+    # ------------ high-level argument ------------
+    parser.add_argument("-ftest", required=True, type=str, help="In a CSV format with header of 'lang'\t'txt'")
+    args = parser.parse_args()
+    df = pd.read_csv(args.ftest, '\t')
+    preds = []
+    golds = []
     with torch.no_grad():
-        line = input('Pleasing input text for language identification: ')
-        if len(line.strip()) == 0:
-            continue
-        batch = build_batch(line)
-        logits = mdl(batch)
-        pred = logits.max(dim=-1)[1]
-        pred = LANG.decode(pred)[0]
-        label = lang2label[pred]
-        print(f'Model output: {label} (ISO-649-4: {pred})')
+        for idx, row in tqdm.tqdm(df.iterrows(), total=len(df)):
+            batch = build_batch(row.txt)
+            logits = mdl(batch)
+            pred = logits.max(dim=-1)[1]
+            pred = LANG.decode(pred)[0]
+            preds.append(pred)
+            golds.append(row.lang)
+
+    acc = accuracy_score(golds, preds) * 100
+    f1 = f1_score(golds, preds, average='macro') * 100
+    precision = precision_score(golds, preds, average='macro') * 100
+    recall = recall_score(golds, preds, average='macro') * 100
+    res = {'acc': round(acc, 2),
+           'f1': round(f1, 2),
+           'precision': round(precision, 2),
+           'recall': round(recall, 2)}
+
+    utils.log(f'Test result for {args.ftest}: {res}')
 

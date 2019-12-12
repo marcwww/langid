@@ -2,24 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a289e7e-c545-4b71-aa2b-9263e8976a7c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ISO-639-4.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eval.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/predict.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/dataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ffd.py" beforeDir="false" afterPath="$PROJECT_DIR$/ffd.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/1-gram.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/2-gram.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/3-gram.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/4-gram.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/args.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/mdl/ffd/args.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/lang.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/mdl.pkl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/report-acc0.38-f10.072-p0.54-r0.079.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/report-acc9.4e+01-f14e+01-p4.4e+01-r3.9e+01.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f14.8e+01-p5.1e+01-r4.8e+01.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.4e+01-p5.9e+01-r5.5e+01.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,8 +21,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="97" column="17" selection-start-line="97" selection-start-column="17" selection-end-line="97" selection-end-column="17" />
+            <state relative-caret-position="244">
+              <caret line="51" column="38" selection-start-line="44" selection-start-column="4" selection-end-line="51" selection-end-column="38" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -45,31 +31,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/log-word">
+        <entry file="file://$PROJECT_DIR$/log-googledrop-x2size">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
-              <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/log-word-balanced">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="547" column="35" selection-start-line="547" selection-start-column="35" selection-end-line="547" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="73" selection-start-line="73" selection-end-line="73" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="442">
+              <caret line="584" selection-start-line="584" selection-end-line="584" />
             </state>
           </provider>
         </entry>
@@ -83,11 +48,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+            <state relative-caret-position="381">
+              <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="32" />
               <folding>
                 <element signature="e#0#53#0" expanded="true" />
               </folding>
@@ -95,25 +60,22 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ffd.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/predict.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="369">
-              <caret line="71" selection-start-line="71" selection-end-line="71" />
-              <folding>
-                <element signature="e#0#12#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="546">
+              <caret line="65" selection-start-line="65" selection-end-line="65" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/dataset.py">
+        <entry file="file://$PROJECT_DIR$/eval.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3406">
-              <caret line="236" selection-start-line="236" selection-end-line="236" />
+            <state relative-caret-position="398">
+              <caret line="73" selection-start-line="73" selection-end-line="73" />
               <folding>
-                <element signature="e#0#9#0" expanded="true" />
+                <element signature="e#0#53#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -156,15 +118,23 @@
         <option value="$PROJECT_DIR$/log-word" />
         <option value="$PROJECT_DIR$/log-word-balanced" />
         <option value="$PROJECT_DIR$/down.sh" />
+        <option value="$PROJECT_DIR$/eqdrop" />
+        <option value="$PROJECT_DIR$/log-googledrop" />
+        <option value="$PROJECT_DIR$/log-eqdrop" />
+        <option value="$PROJECT_DIR$/log-x2size" />
+        <option value="$PROJECT_DIR$/log-googledrop-x2size" />
+        <option value="$PROJECT_DIR$/log-eqsmdrop" />
+        <option value="$PROJECT_DIR$/eval.py" />
         <option value="$PROJECT_DIR$/app.py" />
+        <option value="$PROJECT_DIR$/predict.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1440" />
-    <option name="y" value="-662" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="2340" />
+    <option name="y" value="-456" />
     <option name="width" value="1920" />
-    <option name="height" value="1057" />
+    <option name="height" value="826" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -172,6 +142,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -179,21 +150,10 @@
               <item name="langid" type="b2602c69:ProjectViewProjectNode" />
               <item name="langid" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="langid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="langid" type="462c0819:PsiDirectoryNode" />
-              <item name="cache" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="langid" type="b2602c69:ProjectViewProjectNode" />
-              <item name="langid" type="462c0819:PsiDirectoryNode" />
-              <item name="mdl" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -205,12 +165,12 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/data" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -225,7 +185,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.train-eqdrop">
+  <component name="RunManager" selected="Python.train-eqsmdrop">
     <configuration name="Iter" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="langid" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -329,6 +289,72 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
       <option name="PARAMETERS" value="-gpu 2 -mdir mdl/ffd-eqdrop -balanced_exp 0.1 -ngram_drop 0.5 -uniblock_drop 0.5 -word_drop 0.5" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train-eqsmdrop" type="PythonConfigurationType" factoryName="Python" singleton="false">
+      <module name="langid" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="-gpu 2 -mdir mdl/ffd-eqsmdrop -balanced_exp 0.1 -ngram_drop 0.01 -uniblock_drop 0.01 -word_drop 0.01" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train-googledrop-x2size" type="PythonConfigurationType" factoryName="Python" singleton="false">
+      <module name="langid" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="-gpu 2 -mdir mdl/ffd-googledrop-x2size -balanced_exp 0.1 -ngram_drop 0.01 -uniblock_drop 0.01 -word_drop 0.5 -ngram_dim 32 -uniblock_dim 16 -word_dim 32" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="train-googledrop" type="PythonConfigurationType" factoryName="Python" singleton="false">
+      <module name="langid" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="-gpu 2 -mdir mdl/ffd-googledrop -balanced_exp 0.1 -ngram_drop 0.01 -uniblock_drop 0.01 -word_drop 0.5" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -556,6 +582,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="train-x2size" type="PythonConfigurationType" factoryName="Python" singleton="false">
+      <module name="langid" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/train.py" />
+      <option name="PARAMETERS" value="-gpu 2 -mdir mdl/ffd-x2size -balanced_exp 0.1 -ngram_dim 32 -uniblock_dim 16 -word_dim 32" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="train" type="PythonConfigurationType" factoryName="Python" singleton="false" temporary="true">
       <module name="langid" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -585,6 +633,10 @@
       <item itemvalue="Python.train-word" />
       <item itemvalue="Python.train-balanced" />
       <item itemvalue="Python.train-eqdrop" />
+      <item itemvalue="Python.train-eqsmdrop" />
+      <item itemvalue="Python.train-googledrop" />
+      <item itemvalue="Python.train-googledrop-x2size" />
+      <item itemvalue="Python.train-x2size" />
       <item itemvalue="Python.train-cpu" />
       <item itemvalue="Python.train-unidrop-invfreq" />
       <item itemvalue="Python.train-unidrop-invfreq-ldim" />
@@ -615,12 +667,13 @@
       <option name="presentableId" value="Default" />
       <updated>1575880005352</updated>
       <workItem from="1575880006682" duration="30976000" />
-      <workItem from="1575961943560" duration="47568000" />
+      <workItem from="1575961943560" duration="57052000" />
+      <workItem from="1576116050252" duration="6696000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="78544000" />
+    <option name="totallyTimeSpent" value="94724000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -632,15 +685,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1441" y="-662" width="1920" height="1057" extended-state="6" />
+    <frame x="1440" y="-662" width="1920" height="1057" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49924356" visible="true" weight="0.16506922" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49924356" visible="true" weight="0.31043664" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.50075644" side_tool="true" weight="0.16506922" />
-      <window_info anchor="bottom" id="File Transfer" weight="0.32953367" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946752" visible="true" weight="0.39378238" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49946752" weight="0.37720206" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4031088" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -648,9 +700,10 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005325" side_tool="true" weight="0.3316062" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49893504" weight="0.3150259" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005325" side_tool="true" weight="0.44559586" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49893504" visible="true" weight="0.21450777" />
       <window_info anchor="bottom" id="Python Console" order="12" />
+      <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32953367" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -678,8 +731,12 @@
     <SUITE FILE_PATH="coverage/langid$train_lowdrop.coverage" NAME="train-lowdrop Coverage Results" MODIFIED="1575983185239" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train_word.coverage" NAME="train-word Coverage Results" MODIFIED="1576059387658" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train_unidrop_x4dim_asgd.coverage" NAME="train-unidrop-x4dim-asgd Coverage Results" MODIFIED="1575990901914" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/langid$train_googledrop_x2size.coverage" NAME="train-googledrop-x2size Coverage Results" MODIFIED="1576116062831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/langid$train_googledrop.coverage" NAME="train-googledrop Coverage Results" MODIFIED="1576073536937" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train_unidrop_invfreq_ldim.coverage" NAME="train-unidrop-invfreq-ldim Coverage Results" MODIFIED="1575986626547" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train.coverage" NAME="train Coverage Results" MODIFIED="1575974324688" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/langid$train_x2size.coverage" NAME="train-x2size Coverage Results" MODIFIED="1576114143557" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/langid$train_eqsmdrop.coverage" NAME="train-eqsmdrop Coverage Results" MODIFIED="1576120251019" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train_uniblock.coverage" NAME="train-uniblock Coverage Results" MODIFIED="1575977831232" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train_balanced.coverage" NAME="train-balanced Coverage Results" MODIFIED="1576059925749" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train_unidrop_invfreq.coverage" NAME="train-unidrop-invfreq Coverage Results" MODIFIED="1575985797394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -688,6 +745,7 @@
     <SUITE FILE_PATH="coverage/langid$train_unidrop_x4dim.coverage" NAME="train-unidrop-x4dim Coverage Results" MODIFIED="1575988340435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$train_unidrop_x4dim_longer.coverage" NAME="train-unidrop-x4dim-longer Coverage Results" MODIFIED="1575991401076" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/langid$app.coverage" NAME="app Coverage Results" MODIFIED="1576064353648" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/langid$train_eqdrop.coverage" NAME="train-eqdrop Coverage Results" MODIFIED="1576069568737" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="watch">
@@ -769,13 +827,7 @@
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/typeshed/stdlib/3/re.pyi">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Iter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" column="27" selection-start-line="21" selection-start-column="8" selection-end-line="21" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Iter.py" />
     <entry file="file://$USER_HOME$/miniconda3/envs/pingan3/lib/python3.6/site-packages/torch/nn/modules/module.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="344">
@@ -814,40 +866,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.4e+01-f14e+01-p4.4e+01-r3.9e+01.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2735" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.9e+01-p6.4e+01-r5.9e+01.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="193" column="53" lean-forward="true" selection-start-line="193" selection-start-column="53" selection-end-line="193" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.8e+01-p6.3e+01-r5.9e+01.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2735" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.5e+01-p5.9e+01-r5.7e+01.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2735" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.4e+01-p5.9e+01-r5.5e+01.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="235">
-          <caret line="198" column="24" lean-forward="true" selection-start-line="198" selection-start-column="24" selection-end-line="198" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc0.38-f10.072-p0.54-r0.079.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2735" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.4e+01-f14e+01-p4.4e+01-r3.9e+01.txt" />
+    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.9e+01-p6.4e+01-r5.9e+01.txt" />
+    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.8e+01-p6.3e+01-r5.9e+01.txt" />
+    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.5e+01-p5.9e+01-r5.7e+01.txt" />
+    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc9.5e+01-f15.4e+01-p5.9e+01-r5.5e+01.txt" />
+    <entry file="file://$PROJECT_DIR$/mdl/ffd/report-acc0.38-f10.072-p0.54-r0.079.txt" />
     <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/remote_sources/-1580626987/1493331257/torch/optim/asgd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
@@ -893,27 +917,72 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
+    <entry file="file://$PROJECT_DIR$/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="97" column="17" selection-start-line="97" selection-start-column="17" selection-end-line="97" selection-end-column="17" />
+        <state relative-caret-position="960">
+          <caret line="73" selection-start-line="73" selection-end-line="73" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dataset.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3405">
+          <caret line="236" selection-start-line="236" selection-end-line="236" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/log-x2size">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="568" column="19" selection-start-line="568" selection-start-column="19" selection-end-line="568" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/log-word">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
+        <state relative-caret-position="-1562">
           <caret line="5" column="2" selection-start-line="5" selection-start-column="2" selection-end-line="5" selection-end-column="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/log-word-balanced">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="547" column="35" selection-start-line="547" selection-start-column="35" selection-end-line="547" selection-end-column="35" />
+        <state relative-caret-position="373">
+          <caret line="569" column="30" selection-start-line="569" selection-start-column="30" selection-end-line="569" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log-eqdrop">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="597" column="33" selection-start-line="597" selection-start-column="33" selection-end-line="597" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log-eqsmdrop">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="586" selection-start-line="586" selection-end-line="586" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log-googledrop">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="596" selection-start-line="596" selection-end-line="596" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log-googledrop-x2size">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="584" selection-start-line="584" selection-end-line="584" />
         </state>
       </provider>
     </entry>
@@ -924,33 +993,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dataset.py">
+    <entry file="file://$PROJECT_DIR$/eval.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3406">
-          <caret line="236" selection-start-line="236" selection-end-line="236" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
+        <state relative-caret-position="398">
           <caret line="73" selection-start-line="73" selection-end-line="73" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
+            <element signature="e#0#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="358">
-          <caret line="46" column="16" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+        <state relative-caret-position="381">
+          <caret line="53" column="8" selection-start-line="53" selection-start-column="8" selection-end-line="53" selection-end-column="32" />
           <folding>
             <element signature="e#0#53#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="51" column="38" selection-start-line="44" selection-start-column="4" selection-end-line="51" selection-end-column="38" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/out.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="48" column="57" lean-forward="true" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mdl/ffd-uniblock/report-acc1.1-f10.099-p0.2-r0.16.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="205" column="53" lean-forward="true" selection-start-line="205" selection-start-column="53" selection-end-line="205" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mdl/ffd-googledrop/report-acc9.8e+01-f18.1e+01-p8.3e+01-r8.1e+01.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="568">
+          <caret line="212" column="53" lean-forward="true" selection-start-line="212" selection-start-column="53" selection-end-line="212" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mdl/ffd-googledrop/report-acc9.9e+01-f18e+01-p8.1e+01-r8.1e+01.txt">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mdl/ffd-uniblock/report-acc9.4e+01-f14.7e+01-p5.2e+01-r4.6e+01.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2383" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mdl/ffd-uniblock/report-acc9.4e+01-f14.8e+01-p5.3e+01-r4.8e+01.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-947" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/predict.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="65" selection-start-line="65" selection-end-line="65" />
         </state>
       </provider>
     </entry>
