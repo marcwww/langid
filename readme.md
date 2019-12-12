@@ -76,13 +76,7 @@ See also [./requirements.txt](./requirements.txt).
 
 ### Usage
 
-**Train**: 
-
-```bash
-python train.py -gpu -1 -ftrain data/train.csv -fvalid data/valid.csv -ftest data/test.csv -mdir mdl/ffd-googledrop-256hdim -nepoches 4
-```
-
-Model files and validation results will be saved in the directory indicated by -midr (mdl/ffd in this cae). Built feature extractors and extracted features will be saved to [./cache](./cache) directory.  The -gpu option indicates the gpu index for training, and should be set to -1 for using cpu. 
+This repo includes a trained model, namely [mdl/ffd-googledrop-256hdim](mdl/ffd-googledrop-256hdim). One can run these following command lines directly without training.
 
 **Evaluation**:
 
@@ -103,6 +97,16 @@ Each line in the input file indicated by -finput contains an input example.
 ```shell
 python interactive.py -gpu -1
 ```
+
+Or, one can train a new model by the following command.
+
+**Train**: 
+
+```bash
+python train.py -gpu -1 -ftrain data/train.csv -fvalid data/valid.csv -ftest data/test.csv -mdir mdl/new_model_dir_name -nepoches 4
+```
+
+Model files and validation results will be saved in the directory indicated by -midr (mdl/ffd in this cae). Built feature extractors and extracted features will be saved to [./cache](./cache) directory.  The -gpu option indicates the gpu index for training, and should be set to -1 for using cpu. 
 
 #### Reference
 
