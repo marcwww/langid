@@ -4,7 +4,7 @@ An simple implementation of language identification (LangID) system.
 
 ### Architecture
 
-![architecture](architecture.png)
+![architecture](./architecture.png)
 
 The model is a feedforward neural network with 3 types of input features:
 
