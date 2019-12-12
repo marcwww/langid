@@ -87,13 +87,13 @@ Model files and validation results will be saved in the directory indicated by -
 **Evaluation**:
 
 ```shell
-python -ftest data/test.csv -mdir mdl/ffd-googledrop-256hdim -gpu -1 -bsz 256
+python eval.py -ftest data/test.csv -mdir mdl/ffd-googledrop-256hdim -gpu -1 -bsz 256
 ```
 
 **Predict from file input**:
 
 ```shell
-python -finput data/input.txt -mdir mdl/ffd-googledrop-256hdim -gpu -1 -bsz 256
+python predict.py -finput data/input.txt -mdir mdl/ffd-googledrop-256hdim -gpu -1 -bsz 256
 ```
 
 Each line in the input file indicated by -finput contains an input example.
