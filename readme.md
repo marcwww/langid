@@ -105,7 +105,7 @@ The -gpu argument indicates the index of GPU to be used, and should be -1 if the
 **Predict from file input**:
 
 ```shell
-python predict.py -finput data/input.txt -mdir mdl/ffd-sm/ -gpu -1 -bsz 256
+python predict.py -finput data/input.txt -mdir mdl/ffd_sm/ -gpu -1 -bsz 256
 ```
 
 Each line in the input file indicated by -finput contains an input example. The output file will be ./out.txt.
@@ -113,7 +113,7 @@ Each line in the input file indicated by -finput contains an input example. The 
 **Interact with command line**:
 
 ```shell
-python interactive.py -gpu -1
+python interactive.py -mdir mdl/ffd_sm -gpu -1
 ```
 
 By running this, you can input texts by keyboard and the language identified will be returned.
