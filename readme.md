@@ -28,7 +28,7 @@ The detailed dimensions are shown in the bracks in the architecture figure. Adam
 | ffd_sm   | 98.44     | 80.97            | 81.11         | 80.02     | 96k      | **3.1** |
 | ffd_lg   | **98.70** | **86.24**        | **85.17**     | **85.17** | **96k**  | 12.2    |
 
-The **fastText** model is trained on the same dataset, using the [official toolkit](https://fasttext.cc/blog/2017/10/02/blog-post.html), and the model is not compressed without quantization techniques. The **ffd_sm** and **ffd_lg** are our models, corresponding to ([mdl/ffd_sm](mdl/ffd_sm), [cache/sm](cache/sm)) and ([mdl/ffd_lg](mdl/ffd_lg), [cache/lg](cache/lg)), respectively. These two models have different vocabulary sizes.
+The **fastText** model is trained on the same dataset, using the [official toolkit](https://fasttext.cc/blog/2017/10/02/blog-post.html), and the model is not compressed without techniques. The **ffd_sm** and **ffd_lg** are our models, corresponding to ([mdl/ffd_sm](mdl/ffd_sm), [cache/sm](cache/sm)) and ([mdl/ffd_lg](mdl/ffd_lg), [cache/lg](cache/lg)), respectively. These two models have different vocabulary sizes.
 
 ### Dependency
 
@@ -79,21 +79,23 @@ See also [./requirements.txt](./requirements.txt).
 
 ### Usage
 
-This repo includes a trained model, namely [mdl/ffd-googledrop-256hdim](mdl/ffd-googledrop-256hdim). One can run these following command lines directly without training.
+This repo includes a trained model, namely [mdl/ffd-googledrop-256hdim](mdl/ffd-googledrop-256hdim). One can run these following command lines directly without training. Please download the [test.csv](https://drive.google.com/drive/u/0/folders/1h07FoRfCGq4ZI22lUmRw4RyaApKRMHYH) for evaluation.
 
 **Evaluation**:
 
 ```shell
-python eval.py -ftest data/test.csv -mdir mdl/ffd-googledrop-256hdim -gpu -1 -bsz 256
+python eval.py -ftest data/test.csv -mdir mdl/ffd_sm/ -gpu -1 -bsz 256
 ```
+
+The -gpu argument indicates the index of GPU to be used, and should be -1 if the CPU is to be used. The -bsz argument indicates the batch size. The -mdir argument indicates the model directory, where the model parameters will be loaded from.
 
 **Predict from file input**:
 
 ```shell
-python predict.py -finput data/input.txt -mdir mdl/ffd-googledrop-256hdim -gpu -1 -bsz 256
+python predict.py -finput data/input.txt -mdir mdl/ffd-sm/ -gpu -1 -bsz 256
 ```
 
-Each line in the input file indicated by -finput contains an input example.
+Each line in the input file indicated by -finput contains an input example. The output file will be ./out.txt.
 
 **Interact with command line**:
 
@@ -101,12 +103,14 @@ Each line in the input file indicated by -finput contains an input example.
 python interactive.py -gpu -1
 ```
 
+By running this, you can input texts by keyboard and the language identified will be returned.
+
 Or, one can train a new model by the following command.
 
 **Train**: 
 
 ```bash
-python train.py -gpu -1 -ftrain data/train.csv -fvalid data/valid.csv -ftest data/test.csv -mdir mdl/new_model_dir_name -nepoches 4
+python train.py -gpu -1 -ftrain data/train.csv -fvalid data/valid.csv -ftest data/test.csv -mdir mdl/new_model_dir_name -nepoches 4 -cdir cache/sm -vsizes 2000 2000 12000 12000 12000
 ```
 
 Model files and validation results will be saved in the directory indicated by -midr (mdl/ffd in this cae). Built feature extractors and extracted features will be saved to [./cache](./cache) directory.  The -gpu option indicates the gpu index for training, and should be set to -1 for using cpu. 
