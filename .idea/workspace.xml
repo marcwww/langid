@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a289e7e-c545-4b71-aa2b-9263e8976a7c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/data/input.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/input.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/data/readme.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,19 +37,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/data/input.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+        <entry file="file://$PROJECT_DIR$/data/readme.md">
+          <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+            <state split_layout="SPLIT">
+              <first_editor>
+                <caret column="4" selection-start-column="4" selection-end-column="4" />
+              </first_editor>
+              <second_editor />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/down_mdir.sh">
+        <entry file="file://$PROJECT_DIR$/data/input.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="6" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
+            <state relative-caret-position="510">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
             </state>
           </provider>
         </entry>
@@ -164,7 +166,6 @@
         <option value="$PROJECT_DIR$/interactive.py" />
         <option value="$PROJECT_DIR$/out.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/data/readme.md" />
         <option value="$PROJECT_DIR$/test_argparse.py" />
         <option value="$PROJECT_DIR$/macros.py" />
         <option value="$PROJECT_DIR$/train.py" />
@@ -174,6 +175,7 @@
         <option value="$PROJECT_DIR$/predict.py" />
         <option value="$PROJECT_DIR$/log-ffd_sm" />
         <option value="$PROJECT_DIR$/data/input.txt" />
+        <option value="$PROJECT_DIR$/data/readme.md" />
       </list>
     </option>
   </component>
@@ -913,12 +915,12 @@
       <workItem from="1575880006682" duration="30976000" />
       <workItem from="1575961943560" duration="57052000" />
       <workItem from="1576116050252" duration="25491000" />
-      <workItem from="1576175191533" duration="19256000" />
+      <workItem from="1576175191533" duration="19425000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="132775000" />
+    <option name="totallyTimeSpent" value="132944000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -947,7 +949,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.5005325" side_tool="true" weight="0.44559586" />
-      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49893504" visible="true" weight="0.14093265" />
+      <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.49893504" visible="true" weight="0.25284973" />
       <window_info anchor="bottom" id="Python Console" order="12" />
       <window_info anchor="bottom" id="File Transfer" order="13" weight="0.32953367" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1232,16 +1234,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/data/readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor>
-            <caret column="42" selection-start-column="42" selection-end-column="42" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log-googledrop-256hdim">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
@@ -1380,13 +1372,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/out.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/log-ffd_sm">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
@@ -1394,10 +1379,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/out.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="41" lean-forward="true" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/input.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" column="25" selection-start-line="33" selection-start-column="25" selection-end-line="33" selection-end-column="25" />
+        <state relative-caret-position="510">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/readme.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor>
+            <caret column="4" selection-start-column="4" selection-end-column="4" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>

@@ -1,1 +1,1 @@
-The training data split can be downloaded from https://drive.google.com/open?id=1sCCNcC8T8lIkuxavkv6l1pyoVbh7jGGP.
+The data split can be downloaded from https://drive.google.com/open?id=1sCCNcC8T8lIkuxavkv6l1pyoVbh7jGGP.
