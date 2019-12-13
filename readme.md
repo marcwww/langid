@@ -100,7 +100,7 @@ This repo includes a trained model, namely [mdl/ffd-googledrop-256hdim](mdl/ffd-
 python eval.py -ftest data/test.csv -mdir mdl/ffd_sm/ -gpu -1 -bsz 256
 ```
 
-The -gpu argument indicates the index of GPU to be used, and should be -1 if the CPU is to be used. The -bsz argument indicates the batch size. The -mdir argument indicates the model directory, where the model parameters will be loaded from.
+The -gpu argument indicates the index of GPU to be used, and should be -1 if the CPU is to be used. The -bsz argument indicates the batch size. The -mdir argument indicates the model directory, where the model parameters will be loaded from. One could change the argument mdl/ffd_sm to mdl/ffd_lg to evaluate the large model.
 
 **Predict from file input**:
 
@@ -108,7 +108,7 @@ The -gpu argument indicates the index of GPU to be used, and should be -1 if the
 python predict.py -finput data/input.txt -mdir mdl/ffd_sm/ -gpu -1 -bsz 256
 ```
 
-Each line in the input file indicated by -finput contains an input example. The output file will be ./out.txt.
+Each line in the input file indicated by -finput contains an input example. The output file will be ./out.txt. One could change the argument mdl/ffd_sm to mdl/ffd_lg to use the large model.
 
 **Interact with command line**:
 
@@ -116,7 +116,7 @@ Each line in the input file indicated by -finput contains an input example. The 
 python interactive.py -mdir mdl/ffd_sm -gpu -1
 ```
 
-By running this, you can input texts by keyboard and the language identified will be returned.
+By running this, you can input texts by keyboard and the language identified will be returned. One could change the argument mdl/ffd_sm to mdl/ffd_lg to use the large model.
 
 Or, one can train a new model by the following command.
 
