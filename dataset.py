@@ -151,10 +151,14 @@ class LangIDDataset(object):
         train, valid, test = self.load_data(ftrain), \
                              self.load_data(fvalid), \
                              self.load_data(ftest)
+        # ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
+        #                  zip([1, 2, 3, 4], [10000, 10000, 50000, 50000])}
+        # ft_extractors['unicode-block'] = UnicodeBlockFeature()
+        # ft_extractors['word'] = WordFeature(50000)
         ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
-                         zip([1, 2, 3, 4], [10000, 10000, 50000, 50000])}
+                         zip([1, 2, 3, 4], [2000, 2000, 12000, 12000])}
         ft_extractors['unicode-block'] = UnicodeBlockFeature()
-        ft_extractors['word'] = WordFeature(50000)
+        ft_extractors['word'] = WordFeature(12000)
         for name in ft_extractors:
             cache_path = os.path.join('cache', f'{name}.pkl')
             if os.path.exists(cache_path):

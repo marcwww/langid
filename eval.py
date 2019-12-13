@@ -26,11 +26,12 @@ def build_batch(txt, ft_extractors):
 
 def load_whole(mdir):
     # mdir = 'mdl/ffd-googledrop-256hdim'
-    # ft_names = ['1-gram', '2-gram', '3-gram', '4-gram', 'unicode-block', 'word']
-    ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
-                     zip([1, 2, 3, 4], [10000, 10000, 50000, 50000])}
-    ft_extractors['unicode-block'] = UnicodeBlockFeature()
-    ft_extractors['word'] = WordFeature(50000)
+    ft_names = ['1-gram', '2-gram', '3-gram', '4-gram', 'unicode-block', 'word']
+    ft_extractors = {name: None for name in ft_names}
+    # ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
+    #                  zip([1, 2, 3, 4], [10000, 10000, 50000, 50000])}
+    # ft_extractors['unicode-block'] = UnicodeBlockFeature()
+    # ft_extractors['word'] = WordFeature(50000)
     for name in ft_extractors:
         cache_path = os.path.join('cache', f'{name}.pkl')
         assert os.path.exists(cache_path)
