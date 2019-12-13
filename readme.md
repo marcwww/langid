@@ -47,17 +47,27 @@ See also [./requirements.txt](./requirements.txt).
 .
 ├── ISO-639-4.csv  # storing mapping between ISO-639-4 language code and label
 ├── architecture.png 
-├── cache # caching objects
-│   ├── 1-gram.pkl  # 1-gram feature extractor
-│   ├── 2-gram.pkl  # 2-gram feature extractor
-│   ├── 3-gram.pkl  # 3-gram feature extractor
-│   ├── 4-gram.pkl  # 4-gram feature extractor
-│   ├── lang.pkl  # mapping between language code and index
-│   ├── unicode-block.pkl  # unicode block feature extractor 
-│   └── word.pkl  # word feature extractor
+├── cache  # storing cached objects
+│   ├── lg  # large vocabulary, corresponding to model ffd_lg
+│   │   ├── 1-gram.pkl  # 1-gram feature extractor
+│   │   ├── 2-gram.pkl  # 2-gram feature extractor
+│   │   ├── 3-gram.pkl  # 3-gram feature extractor
+│   │   ├── 4-gram.pkl  # 4-gram feature extractor
+│   │   ├── lang.pkl  # mapping between language code and index
+│   │   ├── unicode-block.pkl  # unicode block feature extractor 
+│   │   └── word.pkl  # word feature extractor
+│   └── sm  # small vocabulary, corresponding to model ffd_sm
+│       ├── 1-gram.pkl
+│       ├── 2-gram.pkl
+│       ├── 3-gram.pkl
+│       ├── 4-gram.pkl
+│       ├── lang.pkl
+│       ├── unicode-block.pkl
+│       └── word.pkl
 ├── crash_on_ipy.py
 ├── data
 │   ├── input.txt  # example of input for predict.py
+│   ├── readme.md  # the link to the dataset split
 │   ├── test.csv  # test data
 │   ├── unicode_blocks.csv  # defining unicode blocks (ranges)
 │   └── valid.csv  # validation data
@@ -66,8 +76,11 @@ See also [./requirements.txt](./requirements.txt).
 ├── ffd.py  # model definition
 ├── interactive.py  # interaction with command line
 ├── macros.py  # defining macros
-├── mdl  # storing model files
-│   └── ffd-googledrop-256hdim
+├── mdl   # storing model files
+│   ├── ffd_lg  # trained with large vocabularies
+│   │   ├── args.pkl
+│   │   └── mdl.pkl
+│   └── ffd_sm  # trained with small vocabularies
 │       ├── args.pkl
 │       └── mdl.pkl
 ├── predict.py  # predication script
