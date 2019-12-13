@@ -148,19 +148,19 @@ class LangIDDataset(object):
         ftest = args.ftest
         futable = args.futable
         bsz = args.bsz
+        cdir = args.cdir
         train, valid, test = self.load_data(ftrain), \
                              self.load_data(fvalid), \
                              self.load_data(ftest)
-        # ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
-        #                  zip([1, 2, 3, 4], [10000, 10000, 50000, 50000])}
-        # ft_extractors['unicode-block'] = UnicodeBlockFeature()
-        # ft_extractors['word'] = WordFeature(50000)
         ft_extractors = {f'{n}-gram': NgramFeature(n, vsize) for n, vsize in \
-                         zip([1, 2, 3, 4], [2000, 2000, 12000, 12000])}
+                         zip([1, 2, 3, 4], [args.vsizes[VSIZE_1GRAM],
+                                            args.vsizes[VSIZE_2GRAM],
+                                            args.vsizes[VSIZE_3GRAM],
+                                            args.vsizes[VSIZE_4GRAM]])}
         ft_extractors['unicode-block'] = UnicodeBlockFeature()
-        ft_extractors['word'] = WordFeature(12000)
+        ft_extractors['word'] = WordFeature(args.vsizes[VSIZE_WORD])
         for name in ft_extractors:
-            cache_path = os.path.join('cache', f'{name}.pkl')
+            cache_path = os.path.join(cdir, f'{name}.pkl')
             if os.path.exists(cache_path):
                 ft_extractors[name] = utils.load_obj(cache_path)
             else:
@@ -175,7 +175,7 @@ class LangIDDataset(object):
                     raise NotImplementedError
                 utils.save_obj(ft_extractors[name], cache_path)
 
-        cache_path = os.path.join('cache', 'lang.pkl')
+        cache_path = os.path.join(cdir, 'lang.pkl')
         LANG = Lang()
         if os.path.exists(cache_path):
             LANG = utils.load_obj(cache_path)
@@ -185,9 +185,9 @@ class LangIDDataset(object):
             utils.save_obj(LANG, cache_path)
 
         utils.log('Building batches')
-        self.train_iter, _ = self.build_batches(train, 'train', ft_extractors, bsz, LANG, True, device)
-        self.valid_iter, _ = self.build_batches(valid, 'valid', ft_extractors, bsz, LANG, False, device)
-        self.test_iter, _ = self.build_batches(test, 'test', ft_extractors, bsz, LANG, False, device)
+        self.train_iter, _ = self.build_batches(train, cdir, 'train', ft_extractors, bsz, LANG, True, device)
+        self.valid_iter, _ = self.build_batches(valid, cdir, 'valid', ft_extractors, bsz, LANG, False, device)
+        self.test_iter, _ = self.build_batches(test, cdir, 'test', ft_extractors, bsz, LANG, False, device)
         self.ft_extractors = ft_extractors
         self.LANG = LANG
 
@@ -222,7 +222,7 @@ class LangIDDataset(object):
         return seqs
 
     @staticmethod
-    def build_batches(df, df_type, ft_extractors: dict, bsz, LANG: Lang, shuffle, device):
+    def build_batches(df, cdir, df_type, ft_extractors: dict, bsz, LANG: Lang, shuffle, device):
         data = {name: [] for name in ft_extractors}
         data['lang'] = []
 
@@ -237,7 +237,7 @@ class LangIDDataset(object):
             np.random.shuffle(index_segs)
 
         for name in data:
-            cache_path = os.path.join('cache', f'{df_type}.{name}.cache')
+            cache_path = os.path.join(cdir, f'{df_type}.{name}.cache')
 
             if os.path.exists(cache_path):
                 data[name] = utils.load_obj(cache_path)
@@ -266,3 +266,11 @@ class LangIDDataset(object):
                 tensor_types[name] = torch.LongTensor
 
         return utils.BatchIterator(data, len(index_segs), tensor_types, device), df
+
+    @staticmethod
+    def clear_cache(cdir, data_type):
+        for suffix in ['.1-gram.cache', '.2-gram.cache', '.3-gram.cache', '.4-gram.cache',
+                       '.lang.cache', '.unicode-block.cache', '.word.cache']:
+            cache_path = os.path.join(cdir, data_type + suffix)
+            os.system(f'rm {cache_path}')
+            utils.log(f'Cleared cache {cache_path}')

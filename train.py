@@ -64,8 +64,6 @@ def train(args):
     mdl = FeedforwardNetwork(args, dataset.ft_extractors, dataset.LANG).to(dataset.device)
     optimizer = optim.Adam(params=[p for p in mdl.parameters() if p.requires_grad],
                            lr=args.lr, weight_decay=args.l2reg)
-    # optimizer = optim.ASGD(params=[p for p in mdl.parameters() if p.requires_grad],
-    #                        lr=1e-1, weight_decay=args.l2reg)
 
     utils.log('Begin training')
     valid_res = valid(mdl, dataset.valid_iter, dataset.LANG, args)
@@ -94,6 +92,7 @@ def train(args):
                     fmdl = os.path.join(args.mdir, 'mdl.pkl')
                     torch.save(mdl.state_dict(), fmdl)
                     utils.log(f'Saved model to {fmdl}')
+
     utils.log('Training done')
     test_res = valid(mdl, dataset.test_iter, dataset.LANG, args)
     utils.log(f'Test result: {test_res}')
@@ -101,27 +100,46 @@ def train(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(fromfile_prefix_chars='@')
+
+    # ---------------- general/training related params ----------------
+    parser.add_argument("-gpu", default=-1, type=int)
+    parser.add_argument('-seed', default=42, type=int)
     parser.add_argument("-nepoches", default=4, type=int)
+    parser.add_argument("-bsz", default=256, type=int)
+    parser.add_argument("-gclip", default=1, type=float)
+    parser.add_argument("-lr", default=1e-3, type=float)
+    parser.add_argument("-l2reg", default=0, type=float)
+    parser.add_argument('-balanced_exp', default=0.1, type=float)
+
     parser.add_argument("-ngram_dim", default=16, type=int)
     parser.add_argument("-uniblock_dim", default=8, type=int)
     parser.add_argument("-word_dim", default=16, type=int)
     parser.add_argument("-hdim", default=256, type=int)
-    parser.add_argument("-bsz", default=256, type=int)
     parser.add_argument("-ngram_drop", default=0.01, type=float)
     parser.add_argument("-uniblock_drop", default=0.01, type=float)
     parser.add_argument("-word_drop", default=0.5, type=float)
-    parser.add_argument("-gclip", default=1, type=float)
-    parser.add_argument('-balanced_exp', default=0.1, type=float)
-    parser.add_argument("-lr", default=1e-3, type=float)
-    parser.add_argument("-l2reg", default=0, type=float)
-    parser.add_argument("-gpu", default=-1, type=int)
-    parser.add_argument('-seed', default=42, type=int)
 
-    parser.add_argument("-mdir", type=str, default='mdl/ffd')
+    # ---------------- model directory and training files ----------------
+    parser.add_argument("-mdir", type=str, default='mdl/ffd', help='Indicating the directory for '
+                                                                   'saving model parameters and '
+                                                                   'the this argparse object')
     parser.add_argument('-ftrain', default='data/train.csv', type=str)
     parser.add_argument('-fvalid', default='data/valid.csv', type=str)
     parser.add_argument('-ftest', default='data/test.csv', type=str)
     parser.add_argument('-futable', default='data/unicode_blocks.csv', type=str)
+
+    # ---------------- cache directory and vocabulary sizes ----------------
+    parser.add_argument("-cdir", type=str, default='cache/sm', help='Indicating the directory for '
+                                                                    'caching feature extractors and '
+                                                                    'language index mapping')
+    parser.add_argument('-vsizes', default=[2000, 2000, 12000, 12000, 12000], type=int, nargs='+',
+                        help="Vocabulary sizes, "
+                             "for 1-gram, 2-gram, 3-gram, 4-gram and word features,"
+                             " respectively. Default setting is named as 'sm'.")
+    # parser.add_argument('-vsizes', default=[10000, 10000, 50000, 50000, 50000], type=int, nargs='+',
+    #                     help="Vocabulary sizes, "
+    #                          "for 1-gram, 2-gram, 3-gram, 4-gram and word features,"
+    #                          " respectively. Default setting is named as 'lg'.")
 
     args = parser.parse_args()
     utils.init_seed(args.seed)

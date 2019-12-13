@@ -8,7 +8,7 @@ An simple implementation of language identification (LangID) system.
 
 The model is a feedforward neural network with 3 types of input features:
 
-- char n-gram: extracting character n-grams within each word and then embedding them into vectors through look-up tables. Since it is hard to do word tokenization for some languages and we might even do not know whether a language needs word tokenization (e.g. English v.s Chinese), we just do not apply word tokenization and filter out all the n-grams that contain space. The vobulary sizes are respectively 10000, 10000, 50000 and 50000.
+- char n-gram: extracting character n-grams within each word and then embedding them into vectors through look-up tables. Since it is hard to do word tokenization for some languages and we might even do not know whether a language needs word tokenization (e.g. English v.s Chinese),  the whole sequence is received without word segmentation for extracting the character n-grams  and all the extracted n-grams that contain space are filtered out . To scale the model, two set of vobulary sizes are chosen: 1) 2000, 2000, 12000 and 12000 (labeled as 'sm') and 2) 10000, 10000, 50000 and 50000 (labeled as 'lg').
 - unicode block: characters from different languages can fall into different unicode blocks (ranges), and we normalize the counts of all the unicode blocks of the characters to generate features. These normalized counts are then viewed as weights for weighting all the embeddings of unicode blocks. We here use the  external resourse [Unicode Character Ranges](https://www.ling.upenn.edu/courses/Spring_2003/ling538/UnicodeRanges.html) for defining each unicode block, and there are final 122 ones (see [data/unicode-blocks.csv](data/unicode-blocks.csv)).
 - word feature: extracting words seperated by space and embedding them into vectors through a look-up table. Although texts from some languages can not be tokenized into words, we apply this tokenization by space anyway, and the failed ones rely on the above two features for LangID.
 
@@ -22,10 +22,13 @@ The detailed dimensions are shown in the bracks in the architecture figure. Adam
 
 ### Performance
 
-| Model     | Accuracy | Precision(macro) | Recall(macro) | F1(macro) | Char/sec |
-| --------- | -------- | ---------------- | ------------- | --------- | -------- |
-| This repo | 98.70    | 86.24            | 85.17         | 85.17     | 96k      |
-| fastText  | 98.59    | 78.32            | 76.55         | 76.54     | 67k      |
+| Model    | Accuracy  | Precision(macro) | Recall(macro) | F1(macro) | Char/sec | Size/MB |
+| -------- | --------- | ---------------- | ------------- | --------- | -------- | ------- |
+| fastText | 98.59     | 78.32            | 76.55         | 76.54     | 67k      | 339.3   |
+| ffd_sm   | 98.44     | 80.97            | 81.11         | 80.02     | 96k      | **3.1** |
+| ffd_lg   | **98.70** | **86.24**        | **85.17**     | **85.17** | **96k**  | 12.2    |
+
+The **fastText** model is trained on the same dataset, using the [official toolkit](https://fasttext.cc/blog/2017/10/02/blog-post.html), and the model is not compressed without quantization techniques. The **ffd_sm** and **ffd_lg** are our models, corresponding to ([mdl/ffd_sm](mdl/ffd_sm), [cache/sm](cache/sm)) and ([mdl/ffd_lg](mdl/ffd_lg), [cache/lg](cache/lg)), respectively. These two models have different vocabulary sizes.
 
 ### Dependency
 

@@ -28,7 +28,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     device = torch.device(args.gpu if args.gpu != -1 else 'cpu')
-    ft_extractors, LANG, _, mdl, lang2label = load_whole(args.mdir)
+    ft_extractors, LANG, cdir, mdl, lang2label = load_whole(args.mdir)
     mdl.to(device)
 
     preds = []
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     data_type = 'input-only'
     with torch.no_grad():
         data = load_data(args.finput)
-        data_iter, df = LangIDDataset.build_batches(data, data_type, ft_extractors, args.bsz, LANG, False, device)
+        data_iter, df = LangIDDataset.build_batches(data, cdir, data_type, ft_extractors, args.bsz, LANG, False, device)
         for batch in tqdm.tqdm(data_iter):
             mdl.train(False)
             logits = mdl(batch)
@@ -47,7 +47,7 @@ if __name__ == '__main__':
             labels.extend(label)
     for suffix in ['.1-gram.cache', '.2-gram.cache', '.3-gram.cache', '.4-gram.cache',
                    '.lang.cache', '.unicode-block.cache', '.word.cache']:
-        cache_path = os.path.join('cache', data_type + suffix)
+        cache_path = os.path.join(cdir, data_type + suffix)
         os.system(f'rm {cache_path}')
         utils.log(f'Cleared cache {cache_path}')
 
