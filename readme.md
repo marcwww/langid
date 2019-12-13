@@ -92,15 +92,7 @@ See also [./requirements.txt](./requirements.txt).
 
 ### Usage
 
-This repo includes a trained model, namely [mdl/ffd-googledrop-256hdim](mdl/ffd-googledrop-256hdim). One can run these following command lines directly without training. Please download the [test.csv](https://drive.google.com/drive/u/0/folders/1h07FoRfCGq4ZI22lUmRw4RyaApKRMHYH) for evaluation.
-
-**Evaluation**:
-
-```shell
-python eval.py -ftest data/test.csv -mdir mdl/ffd_sm/ -gpu -1 -bsz 256
-```
-
-The -gpu argument indicates the index of GPU to be used, and should be -1 if the CPU is to be used. The -bsz argument indicates the batch size. The -mdir argument indicates the model directory, where the model parameters will be loaded from. One could change the argument mdl/ffd_sm to mdl/ffd_lg to evaluate the large model.
+This repo includes two trained models, namely [mdl/ffd_sm](mdl/ffd_sm) and [mdl/ffd_sm](mdl/ffd_lg). One can run these following command lines directly without training. Please download the [test.csv](https://drive.google.com/drive/u/0/folders/1h07FoRfCGq4ZI22lUmRw4RyaApKRMHYH) for evaluation.
 
 **Predict from file input**:
 
@@ -108,7 +100,7 @@ The -gpu argument indicates the index of GPU to be used, and should be -1 if the
 python predict.py -finput data/input.txt -mdir mdl/ffd_sm/ -gpu -1 -bsz 256
 ```
 
-Each line in the input file indicated by -finput contains an input example. The output file will be ./out.txt. One could change the argument mdl/ffd_sm to mdl/ffd_lg to use the large model.
+Each line in the input file indicated by -finput contains an input example. The -gpu argument indicates the index of GPU to be used, and should be -1 if the CPU is to be used. The -bsz argument indicates the batch size. The -mdir argument indicates the model directory, where the model parameters will be loaded from.  The output file will be ./out.txt. One could change the argument mdl/ffd_sm to mdl/ffd_lg to use the large model.
 
 **Interact with command line**:
 
@@ -117,6 +109,14 @@ python interactive.py -mdir mdl/ffd_sm -gpu -1
 ```
 
 By running this, you can input texts by keyboard and the language identified will be returned. One could change the argument mdl/ffd_sm to mdl/ffd_lg to use the large model.
+
+**Evaluation**:
+
+```shell
+python eval.py -ftest data/test.csv -mdir mdl/ffd_sm/ -gpu -1 -bsz 256
+```
+
+One could change the argument mdl/ffd_sm to mdl/ffd_lg to evaluate the large model.
 
 Or, one can train a new model by the following command.
 
